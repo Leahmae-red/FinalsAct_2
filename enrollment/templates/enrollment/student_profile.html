@@ -1,0 +1,116 @@
+{% extends 'enrollment/base.html' %}
+
+{% block title %}{{ student.first_name }} {{ student.last_name }} — Student Profile{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <a href="{% url 'student_list' %}" class="btn btn-secondary">&larr; Back to Class Roster</a>
+    <a href="/admin/enrollment/student/{{ student.pk }}/change/" class="btn btn-secondary">Edit Record</a>
+</div>
+
+<div class="card">
+    <div class="profile-banner">
+        <div class="profile-identity">
+            <div class="avatar-lg">
+                {{ student.first_name|slice:":1" }}{{ student.last_name|slice:":1" }}
+            </div>
+            <div>
+                <h1 class="profile-name">{{ student.first_name }} {{ student.last_name }}</h1>
+                <div class="profile-meta">
+                    <span class="id-pill">{{ student.student_id }}</span>
+                    <span>{{ student.course }} - {{ student.year_level }}</span>
+                    <span class="status-pill status-{{ student.enrollment_status|lower }}">
+                        &bull; {{ student.enrollment_status }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3>Personal Information</h3>
+    </div>
+    <div class="card-body">
+        <div class="detail-grid">
+            <div class="detail-item">
+                <span class="detail-label">Date of Birth</span>
+                <div class="detail-value">{{ student.date_of_birth }}</div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Gender</span>
+                <div class="detail-value">{{ student.gender }}</div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Email Address</span>
+                <div class="detail-value">{{ student.email }}</div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Phone Number</span>
+                <div class="detail-value">{{ student.phone_number }}</div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Home Address</span>
+                <div class="detail-value">{{ student.address }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3>Academic &amp; Enrollment Information</h3>
+    </div>
+    <div class="card-body">
+        <div class="detail-grid">
+            <div class="detail-item">
+                <span class="detail-label">Course / Program</span>
+                <div class="detail-value">{{ student.course }}</div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Year Level</span>
+                <div class="detail-value">{{ student.year_level }}</div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Assigned Section</span>
+                <div class="detail-value">{{ student.section }}</div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Enrollment Status</span>
+                <div class="detail-value">{{ student.enrollment_status }}</div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Date Enrolled</span>
+                <div class="detail-value">{{ student.date_enrolled }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3>Background Information</h3>
+    </div>
+    <div class="card-body">
+        <div class="detail-grid">
+            <div class="detail-item">
+                <span class="detail-label">Previous School</span>
+                <div class="detail-value">{{ student.previous_school }}</div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Guardian Name</span>
+                <div class="detail-value">{{ student.guardian_name }}</div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Guardian Contact</span>
+                <div class="detail-value">{{ student.guardian_contact }}</div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Medical Notes</span>
+                <div class="detail-value">{{ student.medical_notes }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Online Enrollment System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'enrollment/style.css' %}">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a href="{% url 'student_list' %}" class="brand">
+                <span class="brand-badge">OE</span>
+                <span>
+                    <span class="brand-title">Online Enrollment System</span>
+                    <span class="brand-sub">Class Roster &amp; Student Profiles</span>
+                </span>
+            </a>
+            <nav class="nav-actions">
+                <a href="{% url 'student_list' %}" class="nav-link">Class Roster</a>
+                <a href="/admin/" class="nav-link nav-link-primary">Admin Panel</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-wrap">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

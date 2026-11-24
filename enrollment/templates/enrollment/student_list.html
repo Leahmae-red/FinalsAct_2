@@ -1,0 +1,88 @@
+{% extends 'enrollment/base.html' %}
+
+{% block title %}Class Roster — Online Enrollment System{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Class Roster</h1>
+        <p>Select a student to view their complete Personal, Academic, and Background information.</p>
+    </div>
+    <a href="/admin/enrollment/student/add/" class="btn btn-primary">+ Add Student</a>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <span class="stat-label">Total Students</span>
+        <div class="stat-value">{{ students|length }}</div>
+        <p class="stat-sub">Active enrollments</p>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Portal Mode</span>
+        <div class="stat-value">Admin View</div>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Profile Sections</span>
+        <div class="stat-value">3 Categories</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div>
+            <h2>Class Roster — Enrolled Students</h2>
+            <p class="card-sub">Select a student to view their complete Personal, Academic, and Background information.</p>
+        </div>
+    </div>
+
+    {% if students %}
+    <div class="table-responsive">
+        <table class="roster-table">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student</th>
+                    <th>Course &amp; Year</th>
+                    <th>Section</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td><span class="id-pill">{{ student.student_id }}</span></td>
+                    <td>
+                        <div class="student-cell">
+                            <span class="avatar-sm">
+                                {{ student.first_name|slice:":1" }}{{ student.last_name|slice:":1" }}
+                            </span>
+                            <strong>{{ student.first_name }} {{ student.last_name }}</strong>
+                        </div>
+                    </td>
+                    <td>{{ student.course }} - {{ student.year_level }}</td>
+                    <td><span class="section-pill">{{ student.section }}</span></td>
+                    <td>
+                        <span class="status-pill status-{{ student.enrollment_status|lower }}">
+                            &bull; {{ student.enrollment_status }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="{% url 'student_profile' student.pk %}" class="btn btn-primary">
+                            View Profile
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <h3>No students in the roster yet</h3>
+        <p>Add your first student record through the Django Admin panel to populate the class list.</p>
+        <a href="/admin/enrollment/student/add/" class="btn btn-primary">Go to Add Student</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
